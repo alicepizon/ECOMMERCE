@@ -1,0 +1,130 @@
+classDiagram
+    class Usuario {
+        <<PK>> -Guid Id
+        -String Nome
+        -String Email
+        -String Senha
+        -String Telefone
+        -DateTime DataCadastro
+        -String TipoUsuario
+        -String Rua
+        -String Numero
+        -String Cidade
+        -String Estado
+        -String Cep
+        -String Complemento
+        +void AtualizarPerfil(string nome, string telefone)
+        +void AtualizarEndereco(string rua, string numero, string cidade, string estado, string cep, string complemento)
+        +bool ValidarSenha(string senhaInformada)
+        -void Validar(string nome, string email, string senha)
+    }
+
+    class Categoria {
+        <<PK>> -Guid Id
+        -String Nome
+        -String Descricao
+        +void Atualizar(string nome, string descricao)
+        -void Validar(string nome, string descricao)
+    }
+
+    class Produto {
+        <<PK>> -Guid Id
+        <<FK>> -Guid CategoriaId
+        -String Nome
+        -String Descricao
+        -Decimal Preco
+        -DateTime DataCadastro
+        -String Status
+        -int QuantidadeEstoque
+        +void Atualizar(string nome, string descricao, decimal preco)
+        +void ReporEstoque(int quantidade)
+        +void BaixarEstoque(int quantidade)
+        +void Desativar()
+        -void Validar(string nome, string descricao, decimal preco, int estoque)
+    }
+
+    class Carrinho {
+        <<PK>> -Guid Id
+        <<FK>> -Guid UsuarioId
+        -DateTime DataCriacao
+        -Decimal ValorTotal
+        -List~CarrinhoItem~ _itens
+        +void AdicionarItem(Produto produto, int quantidade)
+        +void RemoverItem(Guid produtoId)
+        +void AtualizarItem(Guid produtoId, int novaQuantidade)
+        +void CalcularValorTotal()
+    }
+
+    class CarrinhoItem {
+        <<PK>> -Guid Id
+        <<FK>> -Guid CarrinhoId
+        <<FK>> -Guid ProdutoId
+        -String ProdutoNome
+        -int Quantidade
+        -Decimal Subtotal
+        +void AtualizarQuantidade(int quantidade)
+        +void AdicionarUnidades(int unidades)
+    }
+
+    class Pedido {
+        <<PK>> -Guid Id
+        <<FK>> -Guid UsuarioId
+        -DateTime DataPedido
+        -Decimal ValorTotal
+        -String Status
+        -List~PedidoItem~ _itens
+        +Pagamento Pagamento
+        +void AdicionarItem(Guid produtoId, string nome, int qtd, decimal preco)
+        +void VincularPagamento(Pagamento pagamento)
+        +void FinalizarPedido()
+        +void Cancelar()
+        -void CalcularTotal()
+    }
+
+    class PedidoItem {
+        <<PK>> -Guid Id
+        <<FK>> -Guid PedidoId
+        <<FK>> -Guid ProdutoId
+        -String NomeProduto
+        -Decimal PrecoUnitario
+        -Decimal Subtotal
+    }
+
+    class Pagamento {
+        <<Abstract>>
+        -Guid Id
+        -Guid PedidoId
+        -DateTime DataPagamento
+        -Decimal Valor
+        -String Status
+        +void Processar()*
+    }
+
+    class PagamentoPix {
+        -String ChavePix
+        -String CodigoCopiaCola
+        +void Processar()
+    }
+
+    class PagamentoCartao {
+        -String NumeroCartaoMascarado
+        -int Parcelas
+        +void Processar()
+    }
+
+    Usuario "1" -- "*" Pedido : faz
+    Usuario "1" -- "1" Carrinho : possui
+
+    Categoria "1" -- "*" Produto : contem
+
+    Carrinho "1" -- "*" CarrinhoItem : contem
+    Produto "1" -- "*" CarrinhoItem : contem
+
+    Produto "1" -- "*" PedidoItem : contem
+    Pedido "1" -- "*" PedidoItem : contem
+
+    %% A seta <|-- indica Herança no Mermaid
+    Pagamento <|-- PagamentoPix
+    Pagamento <|-- PagamentoCartao
+    
+    Pedido "1" -- "1" Pagamento : tem

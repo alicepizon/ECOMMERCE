@@ -1,0 +1,138 @@
+## ---------------------------
+## .NET 9 / C# API gitignore
+## ---------------------------
+
+# Compiled binaries
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# User-specific files
+*.user
+*.userosscache
+*.suo
+*.sln.docstates
+*.userprefs
+
+# Build results
+*.exe
+*.dll
+*.pdb
+*.mdb
+*.cache
+*.log
+*.vspscc
+*.vssscc
+*.ncb
+*.opendb
+*.dbmdl
+
+# Visual Studio
+.vs/
+.vscode/
+.idea/
+
+# Rider
+.idea/
+*.sln.iml
+
+# Backup & package files
+*.bak
+*.orig
+*.tmp
+*.temp
+*.swp
+*.zip
+*.tar.gz
+*.tgz
+*.7z
+
+# Test results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+*.coverage
+*.coveragexml
+*.testresults
+*.trx
+
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+*.nuget.props
+*.nuget.targets
+
+# ASP.NET Core
+appsettings.Development.json
+appsettings.Local.json
+secrets.json
+
+# User secrets / local env
+secrets.json
+.env
+.env.*
+*.local.json
+
+# NuGet packages
+*.nupkg
+*.snupkg
+*.nuspec
+packages/
+**/packages/*
+# Uncomment if you use package restore
+#!**/packages/build/
+# Uncomment if you don’t want to check in NuGet restore results
+**/packages/build/
+.nuget/
+
+# Azure
+PublishProfiles/
+*.azurePubxml
+*.publishsettings
+*.pubxml
+*.pubxml.user
+
+# Logs
+*.log
+*.trace
+*.svclog
+
+# Others
+_ReSharper*/
+*_ReSharper*/
+*.resharper
+*.DotSettings.user
+
+# Docker
+docker-compose.override.yml
+.dockerignore
+
+# Generated documentation
+docs/_site/
+site/
+wwwroot/dist/
+wwwroot/node_modules/
+
+# Node modules (if using frontend in same repo)
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+package-lock.json
+
+# Temporary files
+~$*
+*.tmp
+*.bak
+*.old
+
+# JetBrains Rider / Resharper
+.idea/
+*.sln.iml
+*.DotSettings.user
+
+# macOS / Linux artifacts
+.DS_Store
+Thumbs.db
+*.swp
